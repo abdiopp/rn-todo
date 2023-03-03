@@ -39,6 +39,7 @@ export default function AppNavigator() {
                         headerRight: () => { return <Button title='Logout' onPress={handleLogout} /> }
                     }}>
                         <Stack.Screen name='Home' component={Home} />
+                        <Stack.Screen name='Read' component={Read} />
                     </Stack.Group>
                 }
             </Stack.Navigator>

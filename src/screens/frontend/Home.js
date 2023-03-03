@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { View, Text, ImageBackground, StyleSheet } from 'react-native'
+import { View, Text, ImageBackground, StyleSheet, ScrollView } from 'react-native'
 import { TextInput, Button } from 'react-native-paper'
 import firestore from "@react-native-firebase/firestore"
 import firebase from "@react-native-firebase/app"
-
 import bg from "../../assets/images/bg.jpg"
 import { useAuthContext } from '../../contexts/AuthContext'
 
@@ -56,38 +55,42 @@ export default function Home({ navigation }) {
 
   return (
     <ImageBackground source={bg} style={styles.container}>
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <Text style={[styles.textWhite, styles.h1]}>Add Todo</Text>
-
-        <View style={styles.row}>
-          <TextInput
-            label="Title"
-            value={state.title}
-            onChangeText={value => handleChange("title", value)}
-          />
+      <ScrollView>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text style={[styles.textWhite, styles.h1]}>Add Todo</Text>
+          <View style={styles.row}>
+            <TextInput
+              label="Title"
+              value={state.title}
+              onChangeText={value => handleChange("title", value)}
+            />
+          </View>
+          <View style={styles.row}>
+            <TextInput
+              label="Location"
+              value={state.location}
+              onChangeText={value => handleChange("location", value)}
+            />
+          </View>
+          <View style={styles.row}>
+            <TextInput
+              label="Description"
+              value={state.description}
+              onChangeText={value => handleChange("description", value)}
+              multiline={true}
+              numberOfLines={6}
+            />
+          </View>
+          <View style={styles.row}>
+            <Button mode="contained" color='white' loading={isProcessing} disabled={isProcessing} onPress={handleSubmit}>
+              Add Todo
+            </Button>
+          </View>
         </View>
-        <View style={styles.row}>
-          <TextInput
-            label="Location"
-            value={state.location}
-            onChangeText={value => handleChange("location", value)}
-          />
-        </View>
-        <View style={styles.row}>
-          <TextInput
-            label="Description"
-            value={state.description}
-            onChangeText={value => handleChange("description", value)}
-            multiline={true}
-            numberOfLines={6}
-          />
-        </View>
-        <View style={styles.row}>
-          <Button mode="contained" color='white' loading={isProcessing} disabled={isProcessing} onPress={handleSubmit}>
-            Add Todo
-          </Button>
-        </View>
-      </View>
+        <Button color='red' onPress={() => { navigation.navigate("Read") }}>
+          Read Todos
+        </Button>
+      </ScrollView>
     </ImageBackground>
   )
 }
